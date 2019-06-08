@@ -8,7 +8,7 @@ namespace Sumer.Commands
         [Command("ping")]
         public async Task PingAsync()
         {
-            await ReplyAsync("pong");
+            await ReplyAsync("pong!");
         }
     }
 }
