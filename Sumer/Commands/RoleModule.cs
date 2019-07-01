@@ -55,7 +55,12 @@ namespace Sumer.Commands
         [Command("gimme")]
         public async Task GiveToCurrentUserAsync(params SocketRole[] roles)
         {
-            var user = Context.User as SocketGuildUser;
+            if (!(Context.User is SocketGuildUser user))
+            {
+                await ReplyAsync($"{Context.User.Mention} Failed to get who are you.");
+                return;
+            }
+
             foreach (var role in roles)
             {
                 if (!role.IsMentionable)
