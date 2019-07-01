@@ -61,6 +61,7 @@ namespace Sumer.Commands
                 if (!role.IsMentionable)
                 {
                     await ReplyAsync("The role is not available to grant you.");
+                    return;
                 }
 
                 await user.AddRoleAsync(role);
