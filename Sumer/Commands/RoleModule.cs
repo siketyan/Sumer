@@ -80,5 +80,26 @@ namespace Sumer.Commands
 
             await ReplyAsync($"{Context.User.Mention} Done!");
         }
+
+        [Command("bye")]
+        public async Task TakeFromCurrentUserAsync(params SocketRole[] roles)
+        {
+            if (!(Context.User is SocketGuildUser user))
+            {
+                await ReplyAsync($"{Context.User.Mention} Failed to get who are you.");
+                return;
+            }
+
+            await user.RemoveRolesAsync(roles);
+            await ReplyAsync($"{Context.User.Mention} Done!");
+        }
+
+        [RequireOwner]
+        [Command("take")]
+        public async Task TakeFromUserAsync(SocketGuildUser user, params SocketRole[] roles)
+        {
+            await user.RemoveRolesAsync(roles);
+            await ReplyAsync($"{Context.User.Mention} Done!");
+        }
     }
 }
