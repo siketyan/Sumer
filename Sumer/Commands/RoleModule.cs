@@ -55,12 +55,18 @@ namespace Sumer.Commands
         [Command("gimme")]
         public async Task GiveToCurrentUserAsync(params SocketRole[] roles)
         {
-            var user = Context.User as SocketGuildUser;
+            if (!(Context.User is SocketGuildUser user))
+            {
+                await ReplyAsync($"{Context.User.Mention} Failed to get who are you.");
+                return;
+            }
+
             foreach (var role in roles)
             {
                 if (!role.IsMentionable)
                 {
                     await ReplyAsync("The role is not available to grant you.");
+                    return;
                 }
 
                 await user.AddRoleAsync(role);
@@ -73,11 +79,7 @@ namespace Sumer.Commands
         [Command("give")]
         public async Task GiveToUserAsync(SocketGuildUser user, params SocketRole[] roles)
         {
-            foreach (var role in roles)
-            {
-                await user.AddRoleAsync(role);
-            }
-
+            await user.AddRolesAsync(roles);
             await ReplyAsync($"{Context.User.Mention} Done!");
         }
 
