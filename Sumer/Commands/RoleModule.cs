@@ -79,11 +79,7 @@ namespace Sumer.Commands
         [Command("give")]
         public async Task GiveToUserAsync(SocketGuildUser user, params SocketRole[] roles)
         {
-            foreach (var role in roles)
-            {
-                await user.AddRoleAsync(role);
-            }
-
+            await user.AddRolesAsync(roles);
             await ReplyAsync($"{Context.User.Mention} Done!");
         }
 
